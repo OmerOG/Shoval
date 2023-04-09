@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import * as api from '../../services/api';
 import * as socket from '../../services/socket';
-import { Route } from '../../types';
+import { Route } from '@shoval/common';
 import { RootState } from '../store';
 import { addRoute, setIsRoutePublished, setRoutes } from '../slices/routesSlice';
 

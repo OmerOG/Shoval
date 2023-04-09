@@ -4,7 +4,7 @@ import { addCtrlDoubleClickEvent } from '../services/map/events';
 import { v4 as uuid } from 'uuid';
 import { useAppDispatch, useAppSelector } from '../state/hooks';
 import { thunkCreateRoute } from '../state/thunks/routesThunks';
-import { Point } from '../types';
+import { Point } from '@shoval/common';
 import { MapPositionEvent } from '../services/map/types';
 import { thunkCreatePoint } from '../state/thunks/pointsThunks';
 

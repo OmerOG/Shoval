@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Route } from '../../types';
+import { Route } from '@shoval/common';
 
 interface RoutesState {
     isPublishedRoute: boolean;

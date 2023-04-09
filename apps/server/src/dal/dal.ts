@@ -1,16 +1,9 @@
 import { connect } from 'mongoose';
 import { RouteModel, PointModel } from './models';
-import { Route, Point } from '../types';
+import { Route, Point } from '@shoval/common';
 
 export async function connectToDb(connnectionString: string): Promise<void> {
-    try {
-        await connect(connnectionString);
-    } catch (err: any) {
-        console.error('Could not connect to MongoDB', err);
-        return;
-    }
-
-    console.error('Connected to DB');
+    await connect(connnectionString);
 }
 
 export async function upsertRoute(route: Route): Promise<void> {
@@ -27,11 +20,11 @@ export async function upsertRoute(route: Route): Promise<void> {
 }
 
 export async function getRoutes(): Promise<Route[]> {
-    return await RouteModel.find({ isDeleted: false }).sort({ updatedAt: -1 }).limit(100).exec();
+    return await RouteModel.find<Route>({ isDeleted: false }).sort({ updatedAt: -1 }).limit(100).exec();
 }
 
 export async function getPoints(routeId: string): Promise<Point[]> {
-    return await PointModel.find({ routeId, isDeleted: false }).sort({ createdAt: 1 }).limit(100).exec();
+    return await PointModel.find<Point>({ routeId, isDeleted: false }).sort({ createdAt: 1 }).limit(100).exec();
 }
 
 export async function upsertPoint(point: Point): Promise<void> {

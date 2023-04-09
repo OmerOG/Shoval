@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { getPoints, getRoutes, upsertPoint, upsertRoute } from './dal/dal';
-import { Point, Route } from './types';
+import { Point, Route } from '@shoval/common';
 
 const router = express.Router();
 

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import * as api from '../../services/api';
 import * as socket from '../../services/socket';
-import { Point } from '../../types';
+import { Point } from '@shoval/common';
 import { RootState } from '../store';
 import { addPoint, setPoints } from '../slices/pointsSlice';
 

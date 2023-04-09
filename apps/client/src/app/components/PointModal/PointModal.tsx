@@ -1,8 +1,8 @@
-import { CSSProperties, useState } from 'react';
+import { CSSProperties } from 'react';
 import CloudDoneIcon from '@mui/icons-material/CloudDone';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { ScreenPosition } from '../../services/map/types';
-import { Point } from '../../types';
+import { Point } from '@shoval/common';
 import './PointModal.less';
 
 interface Props {
@@ -22,8 +22,6 @@ interface ModalStyle extends CSSProperties {
 }
 
 export default function PointModal({ height, width, offset, screenPosition, point }: Props) {
-    const [description, setDescription] = useState<string | undefined>(point.description);
-
     return (
         <div
             className="modal"

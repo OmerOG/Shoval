@@ -20,3 +20,14 @@ export interface Point {
     isDeleted?: boolean;
     isTOKSynced?: boolean;
 }
+
+export interface DbRoute extends Omit<Route, 'createdAt' | 'updatedAt'> {
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface DbPoint extends Omit<Point, 'timestamp' | 'createdAt' | 'updatedAt'> {
+    timestamp: Date;
+    createdAt: Date;
+    updatedAt: Date;
+}

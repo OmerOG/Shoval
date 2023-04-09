@@ -1,5 +1,5 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Point } from '../../types';
+import { Point } from '@shoval/common';
 import { getPointMapPosition } from '../../services/util';
 import { RootState } from '../store';
 
