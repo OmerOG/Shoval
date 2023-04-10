@@ -32,6 +32,7 @@ export function useDrawOnMap() {
 
     useEffect(() => {
         if (!route) return;
+        if (!isRoutePublished && mode === 'view') return;
 
         const cleanupFunction = addCtrlDoubleClickEvent(({ latitude, longitude, height }: MapPositionEvent) => {
             if (!isRoutePublished && points.length === 0) {
