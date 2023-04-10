@@ -9,7 +9,7 @@ import {
 } from 'cesium';
 import { viewer } from './map-instance';
 
-export function addCtrlDoubleClickEvent(callback: MapPositionEventCallback): void {
+export function addCtrlDoubleClickEvent(callback: MapPositionEventCallback): () => void {
     viewer.screenSpaceEventHandler.setInputAction(
         (event: ScreenSpaceEventHandler.PositionedEvent) => {
             const coordinates = getMapPositionFromWindowPosition(event.position);
@@ -22,7 +22,7 @@ export function addCtrlDoubleClickEvent(callback: MapPositionEventCallback): voi
         KeyboardEventModifier.CTRL
     );
 
-    () => {
+    return () => {
         viewer.screenSpaceEventHandler.removeInputAction(
             ScreenSpaceEventType.LEFT_DOUBLE_CLICK,
             KeyboardEventModifier.CTRL
