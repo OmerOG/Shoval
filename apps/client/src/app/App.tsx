@@ -9,11 +9,16 @@ import { socket } from './services/socket';
 import { thunkFetchRoutes } from './state/thunks/routesThunks';
 import { PointModals } from './components/PointModals';
 import { addPoint } from './state/slices/pointsSlice';
-import { Point } from './types';
+import { Point } from '@shoval/common';
 import { useAppDispatch, useAppSelector } from './state/hooks';
 import { ThemeProvider } from '@emotion/react';
 import theme from './theme';
 import './App.less';
+
+function removeLoaderElement(): void {
+    const loaderElement = document.querySelector('.loader-container');
+    if (loaderElement) loaderElement.remove();
+}
 
 function App() {
     const mode = useAppSelector((state) => state.app.mode);
@@ -25,6 +30,7 @@ function App() {
     };
 
     useEffect(() => {
+        removeLoaderElement();
         dispatch(thunkFetchRoutes());
     }, []);
 
