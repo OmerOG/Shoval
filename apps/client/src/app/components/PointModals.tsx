@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { addCameraMoveEvent } from '../services/map/events';
 import { useAppSelector } from '../state/hooks';
-import { Point } from '../types';
+import { Point } from '@shoval/common';
 import { ScreenPosition } from '../services/map/types';
 import { getScreenPositionFromMapPosition } from '../services/map/util';
 import PointModal from './PointModal/PointModal';
