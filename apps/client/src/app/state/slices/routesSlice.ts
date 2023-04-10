@@ -41,6 +41,9 @@ export const routesSlice = createSlice({
         },
         addRoute: (state, action: PayloadAction<Route>) => {
             state.routes.push(action.payload);
+        },
+        removeLatestRoute: (state) => {
+            state.routes.pop();
         }
     }
 });
@@ -50,6 +53,7 @@ export const {
     clearCurrentRoute,
     setRoutes,
     addRoute,
+    removeLatestRoute,
     setCurrentRouteName,
     setIsRouteHidden,
     setIsRoutePublished

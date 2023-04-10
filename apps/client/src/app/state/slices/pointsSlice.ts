@@ -20,11 +20,14 @@ export const pointsSlice = createSlice({
         },
         addPoint: (state, action: PayloadAction<Point>) => {
             state.points.push(action.payload);
+        },
+        removeLatestPoint: (state) => {
+            state.points.pop();
         }
     }
 });
 
-export const { setPoints, addPoint } = pointsSlice.actions;
+export const { setPoints, addPoint, removeLatestPoint } = pointsSlice.actions;
 
 export const selectPointsMapPositions = createSelector(
     (state: RootState) => state.points.points,
