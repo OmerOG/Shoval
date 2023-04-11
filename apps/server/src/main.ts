@@ -9,7 +9,7 @@ import socketConnectionManager from './socket';
 
 const PORT = 3000;
 const CONNECTION_STRING = 'mongodb://127.0.0.1:27017/shoval';
-const CORS_ORIGIN = 'http://localhost:5173';
+const CORS_ORIGIN = 'http://localhost:4200';
 
 const app = express();
 app.use(cors());
