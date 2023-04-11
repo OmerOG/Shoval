@@ -1,8 +1,9 @@
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import { useAppDispatch, useAppSelector } from '../state/hooks';
-import { setCurrentRoute, setIsRoutePublished } from '../state/slices/routesSlice';
-import { thunkFetchPoints } from '../state/thunks/pointsThunks';
+import { useAppDispatch, useAppSelector } from '../../state/hooks';
+import { setCurrentRoute, setIsRoutePublished } from '../../state/slices/routesSlice';
+import { thunkFetchPoints } from '../../state/thunks/pointsThunks';
+import './ExistingRouteForm.less';
 
 interface Props {}
 
@@ -26,6 +27,14 @@ export default function ExistingRouteForm({}: Props) {
             fullWidth
             disableClearable
             renderInput={(params) => <TextField {...params} label="Route" />}
+            renderOption={(props, option) => (
+                <li {...props} key={option.route.id}>
+                    <div className="route-option">
+                        <span className="label">{option.label}</span>
+                        <span className="id">{option.route.id}</span>
+                    </div>
+                </li>
+            )}
             isOptionEqualToValue={(option, value) => option?.route.id === value?.route.id}
             onChange={(_, value) => {
                 disptach(setCurrentRoute(value.route));
