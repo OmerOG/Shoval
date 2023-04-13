@@ -9,7 +9,7 @@ interface Props {}
 
 export default function ExistingRouteForm({}: Props) {
     const route = useAppSelector((state) => state.routes.currentRoute);
-    const isRoutePublished = useAppSelector((state) => state.routes.isPublishedRoute);
+    const isRoutePublished = useAppSelector((state) => state.routes.isRoutePublished);
     const routes = useAppSelector((state) =>
         state.routes.routes.map((route) => ({
             label: route.name,

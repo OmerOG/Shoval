@@ -1,37 +1,43 @@
-import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Point } from '@shoval/common';
-import { getPointMapPosition } from '../../services/util';
-import { RootState } from '../store';
 
 interface PointsState {
     points: Point[];
+    isCreatingPoint: boolean;
 }
 
 const initialState: PointsState = {
-    points: []
+    points: [],
+    isCreatingPoint: false
 };
 
 export const pointsSlice = createSlice({
-    name: 'app',
+    name: 'points',
     initialState,
     reducers: {
         setPoints: (state, action: PayloadAction<Point[]>) => {
             state.points = action.payload;
         },
+        clearPoints: (state) => {
+            state.points = [];
+        },
         addPoint: (state, action: PayloadAction<Point>) => {
             state.points.push(action.payload);
         },
+        updatePoint: (state, action: PayloadAction<Point>) => {
+            const updatedPoint = action.payload;
+            const index = state.points.findIndex((point) => point.id === updatedPoint.id);
+            state.points[index] = updatedPoint;
+        },
         removeLatestPoint: (state) => {
             state.points.pop();
+        },
+        setIsCreatingPoint: (state, action: PayloadAction<boolean>) => {
+            state.isCreatingPoint = action.payload;
         }
     }
 });
 
-export const { setPoints, addPoint, removeLatestPoint } = pointsSlice.actions;
-
-export const selectPointsMapPositions = createSelector(
-    (state: RootState) => state.points.points,
-    (points) => points.map(getPointMapPosition)
-);
+export const { setPoints, clearPoints, addPoint, updatePoint, removeLatestPoint } = pointsSlice.actions;
 
 export default pointsSlice.reducer;

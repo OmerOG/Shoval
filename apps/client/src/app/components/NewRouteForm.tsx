@@ -13,7 +13,7 @@ interface Props {}
 export default function NewRouteForm({}: Props) {
     const dispatch = useAppDispatch();
     const route = useAppSelector((state) => state.routes.currentRoute);
-    const isPublishedRoute = useAppSelector((state) => state.routes.isPublishedRoute);
+    const isPublishedRoute = useAppSelector((state) => state.routes.isRoutePublished);
 
     useEffect(() => {
         if (route) return;

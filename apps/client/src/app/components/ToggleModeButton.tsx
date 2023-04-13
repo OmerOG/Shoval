@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { clearCurrentRoute } from '../state/slices/routesSlice';
 import { setPoints } from '../state/slices/pointsSlice';
+import { clearMapPosition } from '../state/slices/newPointSlice';
 
 interface Props {}
 
@@ -20,6 +21,7 @@ export default function ToggleModeButton({}: Props) {
 
         dispatch(clearCurrentRoute());
         dispatch(setPoints([]));
+        dispatch(clearMapPosition());
         dispatch(setMode(value));
     };
 

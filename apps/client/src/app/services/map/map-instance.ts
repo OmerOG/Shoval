@@ -27,4 +27,4 @@ export const viewer = new Viewer('cesiumContainer', {
     sceneModePicker: false
 });
 
-viewer.scene.camera.percentageChanged = 1 / 120;
+viewer.scene.camera.percentageChanged = 0;

@@ -1,6 +1,7 @@
-import { Cartesian3, Color, HeightReference, PolylineArrowMaterialProperty } from 'cesium';
+import { Color, HeightReference, PolylineArrowMaterialProperty } from 'cesium';
 import { viewer } from './map-instance';
 import { MapPosition } from './types';
+import { getCartesianFromMapPosition } from './util';
 
 type MarkerParameters = { id: string; position: MapPosition };
 
@@ -23,10 +24,10 @@ export function removeAllDrawings(): void {
     viewer.entities.removeAll();
 }
 
-function addMarker({ id, position }: MarkerParameters): void {
+export function addMarker({ id, position }: MarkerParameters): void {
     viewer.entities.add({
         id,
-        position: Cartesian3.fromDegrees(position.longitude, position.latitude),
+        position: getCartesianFromMapPosition(position),
         point: {
             pixelSize: 15,
             color: Color.fromAlpha(Color.fromCssColorString('#39FF14'), 0.7),
@@ -35,11 +36,15 @@ function addMarker({ id, position }: MarkerParameters): void {
     });
 }
 
+export function removeMarker(id: string): void {
+    viewer.entities.removeById(id);
+}
+
 function addArrow(id: string, positions: MapPosition[]): void {
     viewer.entities.add({
         id,
         polyline: {
-            positions: positions.map((position) => Cartesian3.fromDegrees(position.longitude, position.latitude)),
+            positions: positions.map(getCartesianFromMapPosition),
             width: 10,
             material: new PolylineArrowMaterialProperty(Color.WHITESMOKE),
             clampToGround: true

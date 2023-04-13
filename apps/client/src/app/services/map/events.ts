@@ -1,7 +1,9 @@
 import { MapPosition, MapPositionEventCallback } from './types';
 import {
+    Billboard,
     Cartesian2,
     Cartographic,
+    Entity,
     KeyboardEventModifier,
     Math,
     ScreenSpaceEventHandler,
@@ -27,6 +29,23 @@ export function addCtrlDoubleClickEvent(callback: MapPositionEventCallback): () 
             ScreenSpaceEventType.LEFT_DOUBLE_CLICK,
             KeyboardEventModifier.CTRL
         );
+    };
+}
+
+export function addEntityClickEvent(callback: (id?: string) => void): () => void {
+    viewer.screenSpaceEventHandler.setInputAction((event: ScreenSpaceEventHandler.PositionedEvent) => {
+        let id = undefined;
+
+        const object = viewer.scene.pick(event.position);
+        if (object) {
+            id = object.id.id;
+        }
+
+        callback(id);
+    }, ScreenSpaceEventType.LEFT_CLICK);
+
+    return () => {
+        viewer.screenSpaceEventHandler.removeInputAction(ScreenSpaceEventType.LEFT_CLICK);
     };
 }
 

@@ -2,14 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Route } from '@shoval/common';
 
 interface RoutesState {
-    isPublishedRoute: boolean;
+    isRoutePublished: boolean;
     isRouteHidden: boolean;
     currentRoute: Route | undefined;
     routes: Route[];
 }
 
 const initialState: RoutesState = {
-    isPublishedRoute: false,
+    isRoutePublished: false,
     isRouteHidden: false,
     currentRoute: undefined,
     routes: []
@@ -23,7 +23,7 @@ export const routesSlice = createSlice({
             state.currentRoute = action.payload;
         },
         setIsRoutePublished: (state, action: PayloadAction<boolean>) => {
-            state.isPublishedRoute = action.payload;
+            state.isRoutePublished = action.payload;
         },
         setIsRouteHidden: (state, action: PayloadAction<boolean>) => {
             state.isRouteHidden = action.payload;
@@ -34,7 +34,7 @@ export const routesSlice = createSlice({
         },
         clearCurrentRoute: (state) => {
             state.currentRoute = undefined;
-            state.isPublishedRoute = false;
+            state.isRoutePublished = false;
         },
         setRoutes: (state, action: PayloadAction<Route[]>) => {
             state.routes = action.payload;

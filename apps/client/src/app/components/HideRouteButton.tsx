@@ -4,6 +4,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useAppDispatch, useAppSelector } from '../state/hooks';
 import { setIsRouteHidden } from '../state/slices/routesSlice';
+import { clearMapPosition } from '../state/slices/newPointSlice';
 
 interface Props {}
 
@@ -17,6 +18,7 @@ export default function HideRouteButton({}: Props) {
             onClick={() => {
                 const newIsRouteHidden = !isRouteHidden;
                 dispatch(setIsRouteHidden(newIsRouteHidden));
+                dispatch(clearMapPosition());
                 setVisibility(!newIsRouteHidden);
             }}
             variant="contained"

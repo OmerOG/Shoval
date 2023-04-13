@@ -1,10 +1,14 @@
 import { io } from 'socket.io-client';
-import { Point, Route } from '../types';
+import { Point, Route } from '@shoval/common';
 
 export const socket = io('http://localhost:3000', {});
 
-export function upsertPoint(point: Point): void {
+export function addPoint(point: Point): void {
     socket.emit('point', point);
+}
+
+export function updatePoint(point: Point): void {
+    socket.emit('updatePoint', point);
 }
 
 export function removePoint(pointId: string): void {
