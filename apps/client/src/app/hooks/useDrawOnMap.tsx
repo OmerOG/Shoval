@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { drawOnMap, removeAllDrawings } from '../services/map/drawing';
+import { drawOnMap, removeAllDrawings, removeMarker } from '../services/map/drawing';
 import { useAppSelector } from '../state/hooks';
 
 export function useDrawOnMap() {
@@ -8,16 +8,19 @@ export function useDrawOnMap() {
     const mapPosition = useAppSelector((state) => state.newPoint.mapPosition);
 
     useEffect(() => {
-        if (!routeId) {
-            removeAllDrawings();
-            return;
-        }
+        if (routeId) return;
+        removeAllDrawings();
+    }, [routeId]);
+
+    useEffect(() => {
+        if (!routeId) return;
 
         const markers = points.map((point) => {
             const [latitude, longitude, height] = point.geography.coordinates;
             return { id: point.id, position: { latitude, longitude, height } };
         });
 
+        removeMarker('draft-point');
         if (mapPosition) {
             markers.push({ id: 'draft-point', position: mapPosition });
         }
