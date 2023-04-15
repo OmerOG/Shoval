@@ -7,7 +7,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { clearCurrentRoute } from '../state/slices/routesSlice';
-import { setPoints } from '../state/slices/pointsSlice';
+import { clearPoints } from '../state/slices/pointsSlice';
 import { clearMapPosition } from '../state/slices/newPointSlice';
 
 interface Props {}
@@ -20,7 +20,7 @@ export default function ToggleModeButton({}: Props) {
         if (!value) return;
 
         dispatch(clearCurrentRoute());
-        dispatch(setPoints([]));
+        dispatch(clearPoints());
         dispatch(clearMapPosition());
         dispatch(setMode(value));
     };

@@ -2,7 +2,7 @@ import Button from '@mui/material/Button';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useAppDispatch, useAppSelector } from '../state/hooks';
 import { clearCurrentRoute } from '../state/slices/routesSlice';
-import { setPoints } from '../state/slices/pointsSlice';
+import { clearPoints } from '../state/slices/pointsSlice';
 import { clearMapPosition } from '../state/slices/newPointSlice';
 
 interface Props {}
@@ -17,7 +17,7 @@ export default function ClearRouteButton({}: Props) {
             sx={{ textTransform: 'capitalize', margin: 2 }}
             onClick={() => {
                 dispatch(clearCurrentRoute());
-                dispatch(setPoints([]));
+                dispatch(clearPoints());
                 dispatch(clearMapPosition());
             }}
             startIcon={<ClearIcon />}
