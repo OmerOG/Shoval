@@ -1,37 +1,25 @@
 import { useEffect, useMemo } from 'react';
-import ClearRouteButton from './components/ClearRouteButton';
-import ExistingRouteForm from './components/ExistingRouteForm/ExistingRouteForm';
-import HideRouteButton from './components/HideRouteButton';
-import NewRouteForm from './components/NewRouteForm';
-import ToggleModeButton from './components/ToggleModeButton';
 import { socket } from './services/socket';
-import { thunkFetchRoutes } from './state/thunks/routesThunks';
 import { addPoint, updatePoint } from './state/slices/pointsSlice';
 import { Point } from '@shoval/common';
 import { useAppDispatch, useAppSelector } from './state/hooks';
-import { ThemeProvider } from '@emotion/react';
-import theme from './theme';
-import './App.less';
 import { useListenToPointCreation } from './hooks/useListenToPointCreation';
 import { useMapClick } from './hooks/useMapClick';
 import { NewPointPopup } from './components/NewPointPopup';
 import { ExistingPointPopup } from './components/ExistingPointPopup';
 import { useDrawOnMap } from './hooks/useDrawOnMap';
+import { MainWindow } from './components/MainWindow/MainWindow';
+import { useRemoveLoader } from './hooks/useRemoveLoader';
+import './App.less';
 
-function removeLoaderElement(): void {
-    const loaderElement = document.querySelector('.loader-container');
-    if (loaderElement) loaderElement.remove();
-}
-
-function App() {
-    const mode = useAppSelector((state) => state.app.mode);
+export default function App() {
     const routeId = useAppSelector((state) => state.routes.currentRoute?.id);
     const isRouteHidden = useAppSelector((state) => state.routes.isRouteHidden);
     const clickedEntity = useMapClick();
     const mapPosition = useAppSelector((state) => state.newPoint.mapPosition);
-
     const dispatch = useAppDispatch();
 
+    useRemoveLoader();
     useListenToPointCreation();
     useDrawOnMap();
 
@@ -42,11 +30,6 @@ function App() {
     const handleUpdatePoint = (point: Point) => {
         dispatch(updatePoint(point));
     };
-
-    useEffect(() => {
-        removeLoaderElement();
-        dispatch(thunkFetchRoutes());
-    }, []);
 
     useEffect(() => {
         if (!routeId) return;
@@ -61,29 +44,18 @@ function App() {
         };
     }, [routeId]);
 
-    const shouldDisplayPopup = useMemo(() => {
-        return routeId && !isRouteHidden && (mapPosition || clickedEntity);
-    }, [routeId, isRouteHidden, mapPosition, clickedEntity]);
+    const shouldDisplayPopup = useMemo(() => routeId && !isRouteHidden, [routeId, isRouteHidden]);
 
     return (
         <>
-            {shouldDisplayPopup &&
-                (mapPosition ? (
-                    <NewPointPopup mapPosition={mapPosition} />
-                ) : (
-                    clickedEntity && <ExistingPointPopup point={clickedEntity} />
-                ))}
-            <ThemeProvider theme={theme}>
-                <div className="box">
-                    <ToggleModeButton />
-                    {mode === 'create' ? <NewRouteForm /> : <ExistingRouteForm />}
-                    <HideRouteButton />
-                    <ClearRouteButton />
-                </div>
-            </ThemeProvider>
+            <MainWindow />
+            {shouldDisplayPopup && (
+                <>
+                    {mapPosition && <NewPointPopup mapPosition={mapPosition} />}
+                    {clickedEntity && <ExistingPointPopup point={clickedEntity} />}
+                </>
+            )}
         </>
     );
 }
-
-export default App;
 
