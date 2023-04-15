@@ -37,6 +37,7 @@ export default function ExistingRouteForm({}: Props) {
             )}
             isOptionEqualToValue={(option, value) => option?.route.id === value?.route.id}
             onChange={(_, value) => {
+                if (route?.id === value.route.id) return;
                 disptach(setCurrentRoute(value.route));
                 disptach(setIsRoutePublished(true));
                 disptach(thunkFetchPoints(value.route.id));
